@@ -1,0 +1,5 @@
+Package: polistat
+Version: 0.0.0
+Title: Political Statistics Predictor
+Description: Backend code for polistat.mbhs.edu.
+Encoding: UTF-8
