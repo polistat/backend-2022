@@ -187,6 +187,13 @@ def simulate(bpi, numpolls30, numpolls, polls, stdev, matrix, office, runCount):
                     seatsWon += 1
 
         demseats.append(36 + seatsWon)
+
+    lean = np.zeros(71)
+    for i in range(0, 71):
+        weight = (1.9 / math.pi) * math.atan((1.75 * numpolls30[i] + 0.05 * numpolls[i]))
+        counterweight = 1 - weight
+        combined = weight * polls[i] + counterweight * bpi[i]
+        lean[i] = combined
         
     return lean, demseats
 
