@@ -2,12 +2,13 @@ import random
 import math
 import numpy as np
 import pandas as pd
-from datetime import date
+from datetime import datetime
 import collections
 import numba
 
-today = date.today()
+today = datetime.now()
 name = today.strftime("%Y-%m-%d")
+outname = today.strftime("%Y-%m-%dT%H_%M_%S-04_00")
 
 f = pd.read_csv(f"~/R Stuff/PoliStat/Class Model/For Simulation/{name}.csv")
 state = f["state"].to_list()
@@ -201,14 +202,14 @@ def simulate(bpi, numpolls30, numpolls, polls, stdev, matrix, office, runCount):
 lean, demseats = simulate(bpi, numpolls30, numpolls, polls, stdev, matrix, office, runCount)
 demseats = collections.Counter(demseats)
 
-with open('~/Documents/polistat-results-2022/averaged-polls/' + name + ".csv", "w") as g:
+with open('~/Documents/polistat-results-2022/averaged-polls/' + outname + ".csv", "w") as g:
     g.write("state_po,office,BPI,weighted_polls,weighted_sd,weighted_var,lean,dem_wins\n")
     for i in range(0, len(matrix)):
         g.write(state[i] + "," + office[i] + "," + str(bpi[i]) + "," + str(polls[i]) + "," + str(stdev[i]) + "," + str(variance[i]) + "," + str(lean[i]) + "," + str(100 * matrix[i] / runCount))
         if i < len(matrix) - 1:
             g.write("\n")
 
-with open('~/Documents/polistat-results-2022/overall-senate/' + name + ".csv", "w") as g:
+with open('~/Documents/polistat-results-2022/overall-senate/' + outname + ".csv", "w") as g:
     g.write("demSeats,occurrences\n")
     for i in range(0, 101):
         g.write(str(i) + "," + str(demseats[i]))
