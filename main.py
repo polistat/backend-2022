@@ -3,10 +3,11 @@ import math
 import numpy as np
 import pandas as pd
 from datetime import datetime
+from zoneinfo import ZoneInfo
 import collections
 import numba
 
-today = datetime.now()
+today = datetime.now(tz=ZoneInfo("US/Eastern"))
 name = today.strftime("%Y-%m-%d")
 outname = today.strftime("%Y-%m-%dT%H_%M_%S-04_00")
 
