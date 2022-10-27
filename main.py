@@ -129,8 +129,13 @@ for j in range(len(correlation_matrix)): #prevent races from influencing their o
         if j==i:
             correlation_matrix[j,i] = 0
 
-correlation_matrix[25,26] = 0.8  # setting the two OK races to same-state correlation value; review w/ cc
-correlation_matrix[26,25] = 0.8
+# manual fixups
+correlation_matrix[state.index("OK"), state.index("OK2")] = 0.8
+correlation_matrix[state.index("OK2"), state.index("OK")] = 0.8
+correlation_matrix[state.index("OK"), state.index("OK") + 1] = 0.6
+correlation_matrix[state.index("OK") + 1, state.index("OK")] = 0.6
+correlation_matrix[state.index("OK2"), state.index("OK") + 1] = 0.6
+correlation_matrix[state.index("OK") + 1, state.index("OK2")] = 0.6
 
 # SOLUTION 1
 # correlation_matrix += 1
@@ -199,7 +204,6 @@ def simulate(bpi, numpolls30, numpolls, polls, stdev, matrix, office, runCount):
         
     return lean, demseats
 
-# ?? why do we use this? shouldn't lean be calculated as if natmood is 0?
 lean, demseats = simulate(bpi, numpolls30, numpolls, polls, stdev, matrix, office, runCount)
 demseats = collections.Counter(demseats)
 
