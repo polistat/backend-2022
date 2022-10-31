@@ -69,6 +69,7 @@ print(today_date)
   polls <- rbind(senate_polls, governor_polls) %>% 
     select(state, office_type, end_date, sample_size, population, fte_grade, methodology, candidate_name, party, pct, race_id, poll_id) %>% 
     filter(!is.na(fte_grade) | fte_grade != "F" | fte_grade != "D") %>% 
+    filter(poll_id != "78283") %>% 
     mutate(party = ifelse(candidate_name == "Evan McMullin", "DEM", party))
   
   Oklahoma_senate_polls <- polls %>% 
